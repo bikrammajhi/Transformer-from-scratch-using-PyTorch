@@ -1,29 +1,85 @@
-# Transformer Implementation from Scratch 🚀
+# 🚀 Transformer Implementation from Scratch
 
-A PyTorch implementation of the Transformer architecture as described in ["Attention Is All You Need"](https://arxiv.org/abs/1706.03762). This project includes a complete, modular implementation of the Transformer machine translation tasks from english to italian.
+<div align="center">
+  <img src="https://miro.medium.com/max/700/1*BHzGVskWGS_3jEcYYi6miQ.png" alt="Transformer Architecture" width="600px">
 
-## 🌟 Features
+  <p><em>A complete PyTorch implementation of the Transformer architecture from the groundbreaking paper <a href="https://arxiv.org/abs/1706.03762">"Attention Is All You Need"</a></em></p>
 
-- Complete transformer architecture implementation
-- Modular design with separate encoder and decoder components
-- Multi-head attention mechanism
-- Support for custom tokenization
-- Training and inference scripts included
-- Translation example implementation
+  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+  [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+  [![PyTorch](https://img.shields.io/badge/PyTorch-1.9+-red.svg)](https://pytorch.org/)
+</div>
+
+## 📋 Features
+
+- **Complete Implementation**: Full transformer architecture with encoder and decoder
+- **Modular Design**: Easily adaptable components for your own NLP tasks
+- **Efficient Attention**: Multi-head attention implementation with masking
+- **Detailed Documentation**: Comments and design explanations throughout the code
+- **Training Pipeline**: Ready-to-use training and inference scripts
+- **Example Application**: English to Italian machine translation
+
+## 🧠 The Transformer Architecture Explained
+
+<div align="center">
+  <img src="https://jalammar.github.io/images/t/transformer_resideual_layer_norm_3.png" alt="Transformer Block" width="450px">
+</div>
+
+The Transformer revolutionized NLP by replacing recurrence and convolutions with **self-attention mechanisms** that capture dependencies regardless of their distance in the sequence.
+
+### ⚡ Self-Attention Mechanism
+
+<div align="center">
+  <img src="https://jalammar.github.io/images/t/self-attention-matrix-calculation-2.png" alt="Self-Attention Calculation" width="500px">
+
+```
+Attention(Q, K, V) = softmax(QK^T/√d_k)V
+```
+</div>
+
+Self-attention computes a weighted sum of all positions in a sequence, with weights determined by the compatibility of query-key pairs.
+
+### 🔄 Multi-Head Attention
+
+<div align="center">
+  <img src="https://jalammar.github.io/images/t/transformer_multi-headed_self-attention-recap.png" alt="Multi-Head Attention" width="550px">
+</div>
+
+Instead of performing a single attention function, the transformer uses multiple attention heads to capture different types of dependencies:
+
+```
+MultiHead(Q, K, V) = Concat(head₁, ..., headₕ)W^O
+where headᵢ = Attention(QW_i^Q, KW_i^K, VW_i^V)
+```
+
+### 📍 Positional Encoding
+
+<div align="center">
+  <img src="https://jalammar.github.io/images/t/transformer_positional_encoding_vectors.png" alt="Positional Encoding" width="400px">
+</div>
+
+Since the transformer has no recurrence, it needs positional encodings to make use of sequence order:
+
+```
+PE(pos,2i) = sin(pos/10000^(2i/d_model))
+PE(pos,2i+1) = cos(pos/10000^(2i/d_model))
+```
 
 ## 🛠️ Components
 
-- `model.py`: Core transformer architecture
-- `train.py`: Training loop and utilities
-- `translate.py`: Inference and translation script
-- `dataset.py`: Data loading and preprocessing
-- `config.py`: Configuration and hyperparameters
+| File | Description |
+|------|-------------|
+| `model.py` | Core transformer architecture implementation |
+| `train.py` | Training loop and optimization procedures |
+| `translate.py` | Inference and translation functionality |
+| `dataset.py` | Data loading and preprocessing utilities |
+| `config.py` | Configuration parameters and hyperparameters |
 
-## 🚀 Quick Start
+## 💻 Quick Start
 
 ```bash
 # Clone the repository
-git https://github.com/bikrammajhi/Transformer-from-scratch-using-PyTorch.git
+git clone https://github.com/bikrammajhi/Transformer-from-scratch-using-PyTorch.git
 cd Transformer-from-scratch-using-PyTorch
 
 # Install requirements
@@ -34,22 +90,13 @@ python train.py
 
 # Translate a sentence
 python translate.py
-
 ```
-or
-## Load pre-trained weights 
 
-### Create necessary directories
-```bash
+## 🔍 Architecture Overview
 
-mkdir -p opus_books_weights
-
-## Download pre-trained weights and tokenizer files
-- will update the instruction here, when weights upload finishes
-````
-
-
-## 📋 Model Architecture
+<div align="center">
+  <img src="https://machinelearningmastery.com/wp-content/uploads/2021/08/attention_research_1.png" alt="Encoder-Decoder" width="500px">
+</div>
 
 ```
 Transformer
@@ -64,35 +111,71 @@ Transformer
     └── Layer Normalization
 ```
 
-### Results
-Training
-```bash
-Processing Epoch 00: 100% 3638/3638 [23:45<00:00,  2.55it/s, loss=6.048]
-Processing Epoch 01: 100% 3638/3638 [23:47<00:00,  2.55it/s, loss=5.207]
-Processing Epoch 02: 100% 3638/3638 [23:47<00:00,  2.55it/s, loss=4.183]
+## 📊 Training Results
+
+### Training Log Example
+
 ```
-Machine translation
-```bash
+Processing Epoch 00: 100% 3638/3638 [23:45<00:00, 2.55it/s, loss=6.048]
+Processing Epoch 01: 100% 3638/3638 [23:47<00:00, 2.55it/s, loss=5.207]
+Processing Epoch 02: 100% 3638/3638 [23:47<00:00, 2.55it/s, loss=4.183]
+```
+
+### Translation Example
+
+```
 Using device: cpu
     SOURCE: I am not a very good a student.
- PREDICTED: Io non ho il  il  .  ⏎  
+ PREDICTED: Io non ho il il. ⏎
 ```
+
+## 🔄 Using Pre-trained Weights
+
+```bash
+# Create necessary directories
+mkdir -p opus_books_weights
+
+# Download pre-trained weights and tokenizer files
+# Will update the instruction here, when weights upload finishes
+```
+
+## 📈 Implementation Details
+
+Our implementation follows the original paper specifications:
+
+| Parameter | Value |
+|-----------|-------|
+| Encoder/Decoder Layers | 6 each |
+| Attention Heads | 8 |
+| Embedding Dimension | 512 |
+| Feed-forward Dimension | 2048 |
+| Dropout Rate | 0.1 |
+
 ## 📚 Training Data
 
-The model can be trained on any parallel corpus. The example implementation uses the [Opus Books dataset](https://opus.nlpl.eu/Books.php) from huggingface.
+The model is trained on the [Opus Books dataset](https://opus.nlpl.eu/Books.php) from Hugging Face, a parallel corpus of various books translated across multiple languages.
 
-## 🤝 Contributing
+## 👥 Contributing
 
-Contributions are welcome! Feel free to submit pull requests or open issues for bugs and feature requests.
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-## 📝 License
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-MIT License - feel free to use this code for your own projects!
+## 📜 License
 
-## ⭐️ Show Your Support
+MIT License - See [LICENSE](LICENSE) for more information.
 
-If you find this implementation helpful, give it a star! ⭐️
+## ⭐ Show Your Support
 
-## Special Thanks
-- Umar Jamil for his video on transformer from Scratch [video](https://www.youtube.com/watch?v=ISNdQcPhsts)
-- Campusx and CodeEmporium for helping me understand transformer
+If you find this implementation helpful, please give it a star! It helps the project gain visibility and encourages further development.
+
+## 🙏 Acknowledgements
+
+- [Umar Jamil](https://www.youtube.com/watch?v=ISNdQcPhsts) for his video on transformer implementation from scratch
+- Campusx and CodeEmporium for their educational content on transformers
+- The authors of the original [Transformer paper](https://arxiv.org/abs/1706.03762)
+- [Jay Alammar](https://jalammar.github.io/illustrated-transformer/) for his illustrated guide to transformers
