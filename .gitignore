@@ -1,0 +1,4 @@
+*.json
+__pycache__/
+runs/
+opus_books_weights/
